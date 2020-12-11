@@ -1,0 +1,8 @@
+div {
+    border: 1px solid black;
+}
+
+.input-group {
+    margin: 10px;
+    place-content: center;
+}
