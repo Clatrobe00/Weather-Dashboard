@@ -89,10 +89,9 @@
           const city = (citySearch).val();
           saveCity(city);
           getWeather(city);
-          
         })
 
-        function getWeather(city ){
+        function getWeather(city){
           let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
           $.ajax({
             url: queryURL,
@@ -109,30 +108,28 @@
         function saveCity (city) {
           if (searchedCities.indexOf(city) === -1) {
                 searchedCities.push(city);
-                console.log(searchedCities);
-                ;
                 makeCityBtn(city);
                 } else {
                   console.log("already got 'im!")
                   }
           window.localStorage.setItem("cities", JSON.stringify(searchedCities))        
-          // May need to add to this function some method of counting the cities
         }
 
         function getSavedCities () {
           let savedCities = JSON.parse(localStorage.getItem('cities'));
           for (let i = 0; i < savedCities.length; i++) {
             searchedCities.push(savedCities[i]);
-            makeCityBtn(savedCities[i]);
-            
-            
+            makeCityBtn(savedCities[i]);  
           }
         };
                
-
         function makeCityBtn (city) {
-          $("<button>" + city + "</button>").addClass('success button').appendTo(savedCitiesSidebar);
+          $("<button>" + city + "</button>").addClass('success button cityBtn').appendTo(savedCitiesSidebar);
         }
+
+        $(".cityBtn").click(function () {
+            getWeather((this).innerHTML);
+        });
     </script>
 </body>
 </html>
