@@ -86,7 +86,6 @@
         
           const city = (citySearch).val();
           saveCity(city);
-          makeCityBtn(city);
           getWeather(city);
         })
 
@@ -109,10 +108,16 @@
                 storedCities.push(city);
                 console.log(storedCities);
                 window.localStorage.setItem("cities", JSON.stringify(storedCities));
+                makeCityBtn(city);
                 } else {
                   console.log("already got 'im!")
                   }
           // May need to add to this function some method of counting the cities
+        }
+
+        function getSavedCities () {
+          saveCityArr = window.localStorage.getItem(JSON.parse("cities"))
+          console.log(saveCityArr);
         }
 
         function makeCityBtn (city) {
