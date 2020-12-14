@@ -80,13 +80,16 @@
         let tempSlot = $("#tempSlot");
         let humiditySlot = $("#humiditySlot");
         let windSpeedSlot = $("#windSpeedSlot");
-        let storedCities = [];
+        var searchedCities = [];
+
+        getSavedCities();
 
         $("#citySearchBtn").click(function (){
         
           const city = (citySearch).val();
           saveCity(city);
           getWeather(city);
+          
         })
 
         function getWeather(city ){
@@ -104,21 +107,27 @@
         }
 
         function saveCity (city) {
-          if (storedCities.indexOf(city) === -1) {
-                storedCities.push(city);
-                console.log(storedCities);
-                window.localStorage.setItem("cities", JSON.stringify(storedCities));
+          if (searchedCities.indexOf(city) === -1) {
+                searchedCities.push(city);
+                console.log(searchedCities);
+                ;
                 makeCityBtn(city);
                 } else {
                   console.log("already got 'im!")
                   }
+          window.localStorage.setItem("cities", JSON.stringify(searchedCities))        
           // May need to add to this function some method of counting the cities
         }
 
         function getSavedCities () {
-          saveCityArr = window.localStorage.getItem(JSON.parse("cities"))
-          console.log(saveCityArr);
-        }
+          let savedCities = JSON.parse(localStorage.getItem('cities'));
+          for (let i = 0; i < savedCities.length; i++) {
+            searchedCities.push(savedCities[i]);
+            
+            
+          }
+        };
+               
 
         function makeCityBtn (city) {
           $("<button>" + city + "</button>").appendTo(savedCitiesSidebar);
