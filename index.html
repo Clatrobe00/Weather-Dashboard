@@ -78,23 +78,32 @@
 
     <script>
         const APIKey = "43b5b86a3681230a45961cc32737a765";
-        let city = 'Nashville';
-        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+        const citySearch = $('#citySearchID');
+
+        $("#citySearchBtn").click(function (){
         
+        const city = (citySearch).val();
+          saveCity(city);
+          makeCityBtn(city);
+          getWeather(city);
+        })
 
-      $("#citySearchBtn").click(function (){
-        //saveCity();
-        //makeCityBtn();
-        getWeather()
-      })
+        function getWeather(city){
+          let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+          $.ajax({
+            url: queryURL,
+            method: "GET"
+            }).then(function(response) {
+                console.log(response);
+            })
+        }
 
-      function getWeather(){
-        $.ajax({
-          url: queryURL,
-          method: "GET"
-          }).then(function(response) {
-              console.log(response)
-          })
+        function saveCity (city) {
+          console.log("save city: " + city);
+        }
+
+        function makeCityBtn (city) {
+          console.log("make city: " + city);
         }
     </script>
 </body>
