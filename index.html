@@ -39,10 +39,8 @@
             </div>
             <div class="cell medium-auto medium-cell-block-container">
               <div class="grid-x grid-padding-x">
-                <div class="cell medium-4 medium-cell-block-y">
-                  <h2>Independent scrolling sidebar</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lacus odio, accumsan id ullamcorper eget, varius nec erat. Nulla facilisi. Donec dui felis, euismod nec finibus vitae, dapibus quis arcu. Maecenas tempor et ipsum quis venenatis. Ut posuere sed augue sit amet efficitur. Sed imperdiet, justo id tempus rhoncus, est est viverra turpis, non vulputate magna lectus et nisl. Pellentesque ultrices porttitor vehicula. Ut aliquet efficitur ligula, a consectetur felis. Proin tristique ut augue nec luctus. Curabitur a sapien pretium, auctor elit a, efficitur erat. Donec tincidunt dui vel velit bibendum euismod. Cras vitae nibh dui. Aliquam erat volutpat. Etiam sit amet arcu a erat efficitur facilisis. Ut viverra dapibus turpis, et ornare justo. Integer in dui cursus, dignissim tortor a, hendrerit risus.</p>
-          
+                <div class="cell medium-4 medium-cell-block-y" id="savedCitiesSidebar">
+                  <h2>Your Cities</h2>
                 
                 </div>
                 <div class="cell medium-8 medium-cell-block-y" id="storedCities">
@@ -77,14 +75,16 @@
     <script>
         const APIKey = "43b5b86a3681230a45961cc32737a765";
         const citySearch = $('#citySearchID');
+        const savedCitiesSidebar = $('#savedCitiesSidebar');
         let cityName = $("#cityName");
         let tempSlot = $("#tempSlot");
         let humiditySlot = $("#humiditySlot");
         let windSpeedSlot = $("#windSpeedSlot");
-        let storedCities = window.localStorage.getItem('cities');
+        let storedCities = [];
+
         $("#citySearchBtn").click(function (){
         
-        const city = (citySearch).val();
+          const city = (citySearch).val();
           saveCity(city);
           makeCityBtn(city);
           getWeather(city);
@@ -105,18 +105,18 @@
         }
 
         function saveCity (city) {
-            if (storedCities.indexOf(city) === -1) {
-            storedCities.push(city);
-            console.log(storedCities);
-            window.localStorage.setItem("cities", JSON.stringify(storedCities));
-            } else {
-              console.log("already got 'im!")
-            }
+          if (storedCities.indexOf(city) === -1) {
+                storedCities.push(city);
+                console.log(storedCities);
+                window.localStorage.setItem("cities", JSON.stringify(storedCities));
+                } else {
+                  console.log("already got 'im!")
+                  }
           // May need to add to this function some method of counting the cities
         }
 
         function makeCityBtn (city) {
-          console.log("make city: " + city);
+          $("<button>" + city + "</button>").appendTo(savedCitiesSidebar);
         }
     </script>
 </body>
