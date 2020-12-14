@@ -81,6 +81,7 @@
         let tempSlot = $("#tempSlot");
         let humiditySlot = $("#humiditySlot");
         let windSpeedSlot = $("#windSpeedSlot");
+        let storedCities = window.localStorage.getItem('cities');
         $("#citySearchBtn").click(function (){
         
         const city = (citySearch).val();
@@ -97,14 +98,21 @@
             }).then(function(response) {
                 console.log(response);
                 (cityName).text(response.name)
-                tempSlot.text(((response.main.temp) - 273.15) * 9/5 + 32);
-                humiditySlot.text(response.main.humidity);
-                windSpeedSlot.text(response.wind.speed);
+                tempSlot.text("Temperature: " + ((response.main.temp) - 273.15) * 9/5 + 32);
+                humiditySlot.text("Humidity: " + response.main.humidity);
+                windSpeedSlot.text("Wind Speed: " + response.wind.speed);
             })
         }
 
         function saveCity (city) {
-          console.log("save city: " + city);
+            if (storedCities.indexOf(city) === -1) {
+            storedCities.push(city);
+            console.log(storedCities);
+            window.localStorage.setItem("cities", JSON.stringify(storedCities));
+            } else {
+              console.log("already got 'im!")
+            }
+          // May need to add to this function some method of counting the cities
         }
 
         function makeCityBtn (city) {
