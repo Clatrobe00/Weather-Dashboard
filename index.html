@@ -123,6 +123,7 @@
           let savedCities = JSON.parse(localStorage.getItem('cities'));
           for (let i = 0; i < savedCities.length; i++) {
             searchedCities.push(savedCities[i]);
+            makeCityBtn(savedCities[i]);
             
             
           }
@@ -130,7 +131,7 @@
                
 
         function makeCityBtn (city) {
-          $("<button>" + city + "</button>").appendTo(savedCitiesSidebar);
+          $("<button>" + city + "</button>").addClass('success button').appendTo(savedCitiesSidebar);
         }
     </script>
 </body>
