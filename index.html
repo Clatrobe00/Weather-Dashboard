@@ -51,6 +51,11 @@
                 </div>
               </div>
             </div>
+            <div class="cell medium-auto medium-cell-block-container" id="forecastBar">
+              <div class="grid-x grid-padding-x">
+                <h5>5 Day Forecast</h5>
+              </div>
+            </div>
             <div class="cell shrink footer">
               <h3>Here's my footer</h3>
             </div>
@@ -89,10 +94,12 @@
           const city = (citySearch).val();
           saveCity(city);
           getWeather(city);
+          getForecast(city);
         })
 
         $(".cityBtn").on("click", function () {
             getWeather((this).innerHTML);
+            getForecast((this).innerHTML);
         });
 
         function getWeather(city){
@@ -101,7 +108,6 @@
             url: queryURL,
             method: "GET"
             }).then(function(response) {
-                console.log(response);
                 (cityName).text(response.name)
                 tempSlot.text("Temperature: " + (response.main.temp));
                 humiditySlot.text("Humidity: " + response.main.humidity);
@@ -131,7 +137,17 @@
           $("<button>").text(city).addClass('success button cityBtn').appendTo(savedCitiesSidebar);
         }
 
-
+        function getForecast (city) {
+          console.log(city);
+          let queryURL = "https://api.openweathermap.org/data/2.5/forecast/daily?id=" + city + "&cnt=" + 5 + "&units=imperial&appid=" + APIKey;
+          $.ajax({
+            url: queryURL,
+            method: "GET"
+            }).then(function(response) {
+              console.log(response);
+          })
+        }
+      
 
 
 
