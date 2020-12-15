@@ -91,6 +91,10 @@
           getWeather(city);
         })
 
+        $(".cityBtn").on("click", function () {
+            getWeather((this).innerHTML);
+        });
+
         function getWeather(city){
           let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
           $.ajax({
@@ -99,7 +103,7 @@
             }).then(function(response) {
                 console.log(response);
                 (cityName).text(response.name)
-                tempSlot.text("Temperature: " + ((response.main.temp) - 273.15) * 9/5 + 32);
+                tempSlot.text("Temperature: " + (((response.main.temp) - 273.15) * 1.8 + 32) + "F");
                 humiditySlot.text("Humidity: " + response.main.humidity);
                 windSpeedSlot.text("Wind Speed: " + response.wind.speed);
             })
@@ -124,12 +128,8 @@
         };
                
         function makeCityBtn (city) {
-          $("<button>" + city + "</button>").addClass('success button cityBtn').appendTo(savedCitiesSidebar);
+          $("<button>").text(city).addClass('success button cityBtn').appendTo(savedCitiesSidebar);
         }
-
-        $(".cityBtn").click(function () {
-            getWeather((this).innerHTML);
-        });
     </script>
 </body>
 </html>
