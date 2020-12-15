@@ -45,9 +45,10 @@
                 </div>
                 <div class="cell medium-8 medium-cell-block-y" id="storedCities">
                   <h2 id="cityName">City</h2>
-                  <p id="tempSlot">Temperature</p>
-                  <p id="humiditySlot">Humidity</p>
-                  <p id="windSpeedSlot">Wind Speed</p>
+                  <p id="tempSlot">Temperature:</p>
+                  <p id="humiditySlot">Humidity:</p>
+                  <p id="windSpeedSlot">Wind Speed:</p>
+                  <p id="uvSlot">UV Index:</p>
                 </div>
               </div>
             </div>
@@ -85,6 +86,7 @@
         let tempSlot = $("#tempSlot");
         let humiditySlot = $("#humiditySlot");
         let windSpeedSlot = $("#windSpeedSlot");
+        let uvSlot = $('#uvSlot');
         var searchedCities = [];
 
         getSavedCities();
@@ -149,7 +151,7 @@
             url: queryURL,
             method: "GET"
             }).then(function(response) {
-              console.log(response);
+              console.log(typeof(response.list));
           })
         }
 
@@ -159,7 +161,7 @@
             url: queryURL,
             method: "GET"
             }).then(function(response) {
-              console.log(response);
+              uvSlot.text("UV Index: " + response.value);
         })}
       
 
