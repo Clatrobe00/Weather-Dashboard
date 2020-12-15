@@ -96,14 +96,14 @@
         });
 
         function getWeather(city){
-          let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+          let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + APIKey;
           $.ajax({
             url: queryURL,
             method: "GET"
             }).then(function(response) {
                 console.log(response);
                 (cityName).text(response.name)
-                tempSlot.text("Temperature: " + (((response.main.temp) - 273.15) * 1.8 + 32) + "F");
+                tempSlot.text("Temperature: " + (response.main.temp));
                 humiditySlot.text("Humidity: " + response.main.humidity);
                 windSpeedSlot.text("Wind Speed: " + response.wind.speed);
             })
@@ -130,6 +130,32 @@
         function makeCityBtn (city) {
           $("<button>").text(city).addClass('success button cityBtn').appendTo(savedCitiesSidebar);
         }
+
+
+
+
+
+
+
+
+
+
+
+        //api.openweathermap.org/data/2.5/forecast/daily?id={city ID}&cnt={cnt}&appid={API key}
+
+
+
+
+
+
+
+
+
+
     </script>
 </body>
 </html>
+
+
+
+
