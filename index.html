@@ -56,6 +56,9 @@
               <div class="grid-x grid-padding-x">
                 <h5>5 Day Forecast</h5>
               </div>
+              <div class="cell" id="forecastCardCell">
+
+              </div>
             </div>
             <div class="cell shrink footer">
               <h3>Here's my footer</h3>
@@ -88,6 +91,7 @@
         let windSpeedSlot = $("#windSpeedSlot");
         let uvSlot = $('#uvSlot');
         var searchedCities = [];
+        const forecastCardCell = $('#forecastCardCell');
 
         getSavedCities();
 
@@ -152,7 +156,12 @@
             method: "GET"
             }).then(function(response) {
               console.log(typeof(response.list));
-          })
+              Object.keys(response.list).forEach(key => {
+	              console.log("key: ", key);
+                console.log("Value: ", response.list[key]);
+                
+              });
+            })
         }
 
         function getUV (lat, lon, name) {
