@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Weather Dashboard</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
     <!-- Compressed CSS -->
     <link rel="stylesheet" href="./develop/style/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
 
     <!-- Compressed JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+    
 </head>
 <body>
     
@@ -76,142 +78,10 @@
         I will need to make three seperate API calls- one for weather, one for five day, and one for UV
         Set cities searched to localstorage, and then generate those calls again when the page is reloaded
     -->    
-
+    <script src="develop/script.js"></script>
 
         
     </div>
-
-    <script>
-
-
-        const APIKey = "43b5b86a3681230a45961cc32737a765";
-        const citySearch = $('#citySearchID');
-        const savedCitiesSidebar = $('#savedCitiesSidebar');
-        let cityName = $("#cityName");
-        let tempSlot = $("#tempSlot");
-        let humiditySlot = $("#humiditySlot");
-        let windSpeedSlot = $("#windSpeedSlot");
-        let uvSlot = $('#uvSlot');
-        var searchedCities = [];
-        const forecastCardCell = $('#forecastCardCell');
-
-        const runWeather = function () {
-            getWeather((this).innerHTML);
-            getForecast((this).innerHTML);
-        };
-
-        getSavedCities();
-
-        $("#citySearchBtn").click(function (){
-        
-          const city = (citySearch).val();
-          
-          getWeather(city);
-          getForecast(city);
-        })
-
-        function getWeather(city){
-          let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + APIKey;
-          $.ajax({
-            url: queryURL,
-            method: "GET"
-            }).then(function(response) {
-                saveCity(city);//console.log(response);
-                (cityName).text(response.name);
-                tempSlot.text("Temperature: " + (response.main.temp));
-                humiditySlot.text("Humidity: " + response.main.humidity);
-                windSpeedSlot.text("Wind Speed: " + response.wind.speed);
-                let lat = response.coord.lat;
-                let lon = response.coord.lon;
-                let name = response.name
-                getUV(lat, lon, name);
-            })
-            .catch(function(err){console.log(err)});
-        }
-
-        function saveCity (city) {
-          if (searchedCities.indexOf(city) === -1) {
-                searchedCities.push(city);
-                makeCityBtn(city);
-                } else {
-                  console.log("already got 'im!")
-                  }
-          window.localStorage.setItem("cities", JSON.stringify(searchedCities))        
-        }
-
-        function getSavedCities () {
-          let savedCities = JSON.parse(localStorage.getItem('cities')) || [];
-          for (let i = 0; i < savedCities.length; i++) {
-            searchedCities.push(savedCities[i]);
-            makeCityBtn(savedCities[i]);  
-          }
-        };
-        function test () {
-          console.log('hello');
-        }     
-        function makeCityBtn (city) {
-          $("<button>").text(city).addClass('success button cityBtn').on("click", runWeather).appendTo(savedCitiesSidebar)
-        }
-
-        function getForecast (city) {
-          console.log(city);
-          let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&cnt=" + 5 + "&units=imperial&appid=" + APIKey;
-          $.ajax({
-            url: queryURL,
-            method: "GET"
-            }).then(function(response) {
-              console.log(typeof(response.list));
-              Object.keys(response.list).forEach(key => {
-	              //console.log("key: ", key);
-                //console.log("Value: ", response.list[key]);
-                
-              });
-            })
-        }
-
-        function getUV (lat, lon, name) {
-          let queryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey
-          $.ajax({
-            url: queryURL,
-            method: "GET"
-            }).then(function(response) {
-              uvSlot.text("UV Index: " + response.value);
-        })}
-
-    let savedCities = JSON.parse(localStorage.getItem('cities')) || [];  
-    if (savedCities.length) {
-      getWeather(savedCities[savedCities.length - 1]);
-      getForecast(savedCities[savedCities.length - 1]);
-    } else {
-      getWeather('Nashville');
-      getForecast('Nashville');
-    }
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-    </script>
 </body>
 </html>
 
