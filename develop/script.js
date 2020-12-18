@@ -70,7 +70,19 @@
             url: queryURL,
             method: "GET"
             }).then(function(response) {
-                createForecastCards(response.list);    
+                forecastCardCell.empty();
+                const forecastList = response.list
+                Object.keys(forecastList).forEach(key => {
+                    //console.log("key: ", key);
+                    console.log("Value: ", forecastList[key]);
+                    let FCDiv = $('<div>').addClass('col');
+                    let FCCard = $('<div>').addClass('card')
+                    let cardHead = $('<h5>').text((parseInt(key) + 1) + " day forecast").appendTo(FCCard);
+                    let temp = $('<div>').text("Temp: " + forecastList[key].main.temp).appendTo(FCCard);
+                    let humidity = $('<div>').text("Humidity: " + forecastList[key].main.humidity).appendTo(FCCard);
+                    FCDiv.append(FCCard)
+                    forecastCardCell.append(FCDiv);
+                  });   
         })
     };
 
@@ -91,12 +103,4 @@
     } else {
       getWeather('Nashville');
       getForecast('Nashville');
-    }
-
-    function createForecastCards (data) {
-        Object.keys(data.list).forEach(key => {
-            console.log("key: ", key);
-            console.log("Value: ", data.list[key]);
-            
-          });
     }

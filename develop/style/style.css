@@ -5,3 +5,10 @@ div {
 .input-group {
     margin: 10px;
 }
+
+.card {
+    padding: 10px;
+    margin: 10px;
+    background-color: aquamarine;
+    border-radius: 10px;
+}
