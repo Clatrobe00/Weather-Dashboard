@@ -28,11 +28,14 @@
             url: queryURL,
             method: "GET"
             }).then(function(response) {
-                saveCity(city);//console.log(response);
+                saveCity(city);
+                console.log(response);
                 (cityName).text(response.name);
                 tempSlot.text("Temperature: " + (response.main.temp));
                 humiditySlot.text("Humidity: " + response.main.humidity);
                 windSpeedSlot.text("Wind Speed: " + response.wind.speed);
+                let imageUrl = "http://openweathermap.org/img/wn/" + response.weather[0].icon + ".png";
+                $("#weatherIcon").attr("src", imageUrl);
                 let lat = response.coord.lat;
                 let lon = response.coord.lon;
                 let name = response.name
@@ -72,7 +75,7 @@
                 forecastCardCell.empty();
                 const forecastList = response.list
                 Object.keys(forecastList).forEach(key => {
-                    console.log("Value: ", forecastList[key]);
+                    //console.log("Value: ", forecastList[key]);
                     let FCDiv = $('<div>').addClass('col');
                     let FCCard = $('<div>').addClass('card')
                     let cardHead = $('<h5>').text((parseInt(key) + 1) + " day forecast").appendTo(FCCard);
@@ -91,6 +94,15 @@
             method: "GET"
             }).then(function(response) {
               uvSlot.text("UV Index: " + response.value);
+              if (response.value <= 3) {
+                  uvSlot.css("background-color", "green");
+              } else if (response.value >= 8) {
+                    uvSlot.css("background-color", "red");
+              } else if (response.value > 3 && response.value <= 6) {
+                    uvSlot.css("background-color", "yellow");
+              } else {
+                uvSlot.css("background-color", "orange");
+              }
         })
     }
 
