@@ -64,7 +64,6 @@
     };
 
     function getForecast (city) {
-        console.log(city);
         let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&cnt=" + 5 + "&units=imperial&appid=" + APIKey;
         $.ajax({
             url: queryURL,
@@ -73,7 +72,6 @@
                 forecastCardCell.empty();
                 const forecastList = response.list
                 Object.keys(forecastList).forEach(key => {
-                    //console.log("key: ", key);
                     console.log("Value: ", forecastList[key]);
                     let FCDiv = $('<div>').addClass('col');
                     let FCCard = $('<div>').addClass('card')
