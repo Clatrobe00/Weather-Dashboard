@@ -30,7 +30,7 @@
             }).then(function(response) {
                 saveCity(city);
                 console.log(response);
-                (cityName).text(response.name);
+                (cityName).text(response.name + " " + (moment().format('MMMM Do YYYY')));
                 tempSlot.text("Temperature: " + (response.main.temp));
                 humiditySlot.text("Humidity: " + response.main.humidity);
                 windSpeedSlot.text("Wind Speed: " + response.wind.speed);
