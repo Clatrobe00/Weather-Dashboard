@@ -30,7 +30,7 @@
             }).then(function(response) {
                 saveCity(city);
                 console.log(response);
-                (cityName).text(response.name + " " + (moment().format('MMMM Do YYYY')));
+                (cityName).text(response.name + " " + (moment().format("M/D/YY")));
                 tempSlot.text("Temperature: " + (response.main.temp));
                 humiditySlot.text("Humidity: " + response.main.humidity);
                 windSpeedSlot.text("Wind Speed: " + response.wind.speed);
@@ -75,10 +75,13 @@
                 forecastCardCell.empty();
                 const forecastList = response.list
                 Object.keys(forecastList).forEach(key => {
-                    //console.log("Value: ", forecastList[key]);
+                    console.log("Value: ", forecastList[key]);
                     let FCDiv = $('<div>').addClass('col');
                     let FCCard = $('<div>').addClass('card')
-                    let cardHead = $('<h5>').text((parseInt(key) + 1) + " day forecast").appendTo(FCCard);
+                    let cardHead = $('<h5>').text((moment().add((parseInt(key) + 1), 'days').format("M/D/YY"))).appendTo(FCCard);
+                    let iconDiv = $('<div>').addClass('iconDiv cell medium-auto').appendTo(FCCard);
+                    let iconUrl = "http://openweathermap.org/img/wn/" + forecastList[key].weather[0].icon + ".png";
+                    let iconImg = $("<img>").addClass("iconImg").attr("src", iconUrl).appendTo(iconDiv);
                     let temp = $('<div>').text("Temp: " + forecastList[key].main.temp).appendTo(FCCard);
                     let humidity = $('<div>').text("Humidity: " + forecastList[key].main.humidity).appendTo(FCCard);
                     FCDiv.append(FCCard)
