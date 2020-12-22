@@ -77,14 +77,16 @@
                 Object.keys(forecastList).forEach(key => {
                     console.log("Value: ", forecastList[key]);
                     let FCDiv = $('<div>').addClass('col');
+                    let FCCellDiv = $('<div>').addClass('grid-x small-auto');
                     let FCCard = $('<div>').addClass('card')
                     let cardHead = $('<h5>').text((moment().add((parseInt(key) + 1), 'days').format("M/D/YY"))).appendTo(FCCard);
-                    let iconDiv = $('<div>').addClass('iconDiv cell medium-auto').appendTo(FCCard);
+                    let iconDiv = $('<div>').addClass('iconDiv cell small-auto').appendTo(FCCard);
                     let iconUrl = "http://openweathermap.org/img/wn/" + forecastList[key].weather[0].icon + ".png";
                     let iconImg = $("<img>").addClass("iconImg").attr("src", iconUrl).appendTo(iconDiv);
                     let temp = $('<div>').text("Temp: " + forecastList[key].main.temp).appendTo(FCCard);
                     let humidity = $('<div>').text("Humidity: " + forecastList[key].main.humidity).appendTo(FCCard);
-                    FCDiv.append(FCCard)
+                    FCCellDiv.append(FCCard);
+                    FCDiv.append(FCCellDiv);
                     forecastCardCell.append(FCDiv);
                   });   
         })
