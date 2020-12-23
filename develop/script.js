@@ -31,9 +31,9 @@
                 saveCity(city);
                 console.log(response);
                 (cityName).text(response.name + " " + (moment().format("M/D/YY")));
-                tempSlot.text("Temperature: " + (response.main.temp));
-                humiditySlot.text("Humidity: " + response.main.humidity);
-                windSpeedSlot.text("Wind Speed: " + response.wind.speed);
+                tempSlot.text("Temperature: " + (Math.floor(response.main.temp)) +'°F');
+                humiditySlot.text("Humidity: " + response.main.humidity + '%');
+                windSpeedSlot.text("Wind Speed: " + response.wind.speed + ' MPH');
                 let imageUrl = "http://openweathermap.org/img/wn/" + response.weather[0].icon + ".png";
                 $("#weatherIcon").attr("src", imageUrl);
                 let lat = response.coord.lat;
@@ -77,14 +77,14 @@
                 Object.keys(forecastList).forEach(key => {
                     console.log("Value: ", forecastList[key]);
                     let FCDiv = $('<div>').addClass('col');
-                    let FCCellDiv = $('<div>').addClass('grid-x small-auto');
-                    let FCCard = $('<div>').addClass('card')
+                    let FCCellDiv = $('<div>').addClass('grid-x');
+                    let FCCard = $('<div>').addClass('card flex-align-self')
                     let cardHead = $('<h5>').text((moment().add((parseInt(key) + 1), 'days').format("M/D/YY"))).appendTo(FCCard);
                     let iconDiv = $('<div>').addClass('iconDiv cell small-auto').appendTo(FCCard);
                     let iconUrl = "http://openweathermap.org/img/wn/" + forecastList[key].weather[0].icon + ".png";
                     let iconImg = $("<img>").addClass("iconImg").attr("src", iconUrl).appendTo(iconDiv);
-                    let temp = $('<div>').text("Temp: " + forecastList[key].main.temp).appendTo(FCCard);
-                    let humidity = $('<div>').text("Humidity: " + forecastList[key].main.humidity).appendTo(FCCard);
+                    let temp = $('<div>').text("Temp: " + Math.floor(forecastList[key].main.temp) + '°F').appendTo(FCCard);
+                    let humidity = $('<div>').text("Humidity: " + forecastList[key].main.humidity + '%').appendTo(FCCard);
                     FCCellDiv.append(FCCard);
                     FCDiv.append(FCCellDiv);
                     forecastCardCell.append(FCDiv);
