@@ -1,6 +1,3 @@
-div {
-    border: 1px solid black;
-}
 
 .input-group {
     margin: 10px;
@@ -8,11 +5,17 @@ div {
 
 .card {
     padding: 10px;
-    background-color: aquamarine;
     border-radius: 10px;
     display: flex;
-
+    margin: 20px;
+    
 }
+
+div {
+    background-color: lightblue;
+    color: black;
+}
+
 
 .container {
     display: flex;
@@ -35,3 +38,34 @@ h1, #savedCitiesSidebar {
 .cityBtn {
     width: 100%;
 }
+
+#savedCitiesSidebar {
+    height: 250px;
+}
+
+.weatherContainer {
+    border: 1px solid black;
+    padding: 10px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+ 
+}
+
+#forecastCardCell {
+    background-color: grey;
+}
+
+p span {
+    color: white;
+}
+
+.cityBtn {
+    color: dimgray;
+}
+
+footer {
+    text-align: center;
+    margin: 0 auto;
+}
+

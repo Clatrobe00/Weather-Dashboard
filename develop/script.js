@@ -63,7 +63,7 @@
     };
   
     function makeCityBtn (city) {
-        $("<button>").text(city).addClass('success button cityBtn').on("click", runWeather).appendTo(savedCitiesSidebar)
+        $("<button>").text(city).addClass('secondary button cityBtn').on("click", runWeather).appendTo(savedCitiesSidebar)
     };
 
     function getForecast (city) {
@@ -76,8 +76,6 @@
                 const forecastList = response.list
                 Object.keys(forecastList).forEach(key => {
                     console.log("Value: ", forecastList[key]);
-                    let FCDiv = $('<div>').addClass('col');
-                    let FCCellDiv = $('<div>').addClass('grid-x');
                     let FCCard = $('<div>').addClass('card flex-align-self')
                     let cardHead = $('<h5>').text((moment().add((parseInt(key) + 1), 'days').format("M/D/YY"))).appendTo(FCCard);
                     let iconDiv = $('<div>').addClass('iconDiv cell small-auto').appendTo(FCCard);
@@ -85,9 +83,7 @@
                     let iconImg = $("<img>").addClass("iconImg").attr("src", iconUrl).appendTo(iconDiv);
                     let temp = $('<div>').text("Temp: " + Math.floor(forecastList[key].main.temp) + '°F').appendTo(FCCard);
                     let humidity = $('<div>').text("Humidity: " + forecastList[key].main.humidity + '%').appendTo(FCCard);
-                    FCCellDiv.append(FCCard);
-                    FCDiv.append(FCCellDiv);
-                    forecastCardCell.append(FCDiv);
+                    forecastCardCell.append(FCCard);
                   });   
         })
     };

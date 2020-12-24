@@ -28,7 +28,7 @@
                         <span class="input-group-label">City</span>
                         <input class="input-group-field" id="citySearchID" type="text">
                         <div class="input-group-button">
-                          <input type="submit" id="citySearchBtn" class="button" value="Search">
+                          <input type="submit" id="citySearchBtn" class="button secondary" value="Search">
                         </div>
                       </div>
                   </div>
@@ -53,35 +53,19 @@
                   <p id="tempSlot">Temperature:</p>
                   <p id="humiditySlot">Humidity:</p>
                   <p id="windSpeedSlot">Wind Speed:</p>
-                  <p id="uvSlot">UV Index:</p>
+                  <p ><span id="uvSlot">UV Index:</span></p>
                 </div>
               </div>
               <div class="foreCast">
                 <h5>5 Day Forecast</h5>
-                <div class="container" id="forecastCardCell">
+                <div class="grid-x container fluid" id="forecastCardCell">
                   </div>
-                </div>
-                <div class="cell shrink footer">
-                  <h5>Thanks for stopping by!</h5>
                 </div>
               </div>
 
           </div>    
-
-    <!--TO DO-->
-    <!--
-        Aqcuire CSS Framework - FOUNDATION
-        Acquire Weather API - YES
-        Create Critical HTML Elements
-        Write function for AJAX Call
-        Write JQuery to set new elements
-        Add eventlisteners (city buttons and search input)
-        I will need to make three seperate API calls- one for weather, one for five day, and one for UV
-        Set cities searched to localstorage, and then generate those calls again when the page is reloaded
-    -->    
-    <script src="develop/script.js"></script>
-
-        
+   
+    <script src="develop/script.js"></script>        
     </div>
 </body>
 </html>
